@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>InterNOT privacy policy</title>
+<style>
+  :root { color-scheme: light dark; --fg: #10261f; --bg: #f7faf8; --accent: #1e6b5c; --muted: #4f6560; --line: #d7e2dd; }
+  @media (prefers-color-scheme: dark) { :root { --fg: #e6efea; --bg: #0f1c18; --accent: #7fd1bd; --muted: #a9bdb6; --line: #27403a; } }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 17px/1.55 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 2rem; margin: 0 0 4px; }
+  h2 { font-size: 1.25rem; margin: 2em 0 .5em; color: var(--accent); }
+  p.meta { color: var(--muted); margin-top: 0; }
+  table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: .95em; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 600; }
+  code { font-size: .9em; background: rgba(127,127,127,.12); padding: 1px 5px; border-radius: 4px; }
+  li { margin: .35em 0; }
+  footer { margin-top: 3em; color: var(--muted); font-size: .9em; border-top: 1px solid var(--line); padding-top: 1em; }
+</style>
+</head>
+<body>
+<main>
+<h1>InterNOT privacy policy</h1>
+<p class="meta">Effective date: 1 November 2026.</p>
+
+<p>InterNOT is an Android app that works out why the internet is not working on your phone and explains it in plain language. It is made by an individual developer (the "developer", contact below). This policy says what the app reads, what it sends, to whom, and what it never does. It is written to be exact: when the app changes what it sends, this page changes first.</p>
+
+<h2>The short version</h2>
+<ul>
+  <li>Everything the app measures stays on your phone. Nothing is uploaded to the developer.</li>
+  <li>A check contacts the internet the way a browser does: DNS resolvers, a few well-known websites, the site you name, and the developer's test server. Those servers see your public IP address, as every server you connect to does.</li>
+  <li>One thing is sent to a third party: if you ask the app to check a specific site and that site fails to open from your network, the app sends that site's name to Globalping, a public measurement network, to check it from other countries. The app tells you this before the first check.</li>
+  <li>There are no accounts, no ads, no analytics, no trackers, no crash reporting by the app.</li>
+  <li>The location permission is used only to read cell tower and Wi-Fi identifiers. Your location is never calculated, stored or sent.</li>
+</ul>
+
+<h2>What the app reads on your phone</h2>
+<p>All of this is read only while a check you started is running, and is kept only on the phone.</p>
+<ul>
+  <li><strong>Connection state</strong>: which networks are up (Wi-Fi, mobile data, VPN, Ethernet), which one carries your traffic, their IP addresses and DNS servers, and settings that affect connectivity: airplane mode, data saver, private DNS, whether a VPN is active.</li>
+  <li><strong>Wi-Fi</strong>: signal strength, channel, the number of other access points on the same channel (from the system's cached scan, the app never starts a scan), and, with the location permission, the network name (SSID) and the access point identifier (BSSID).</li>
+  <li><strong>Mobile network</strong>: operator, network technology (3G, 4G, 5G), signal strength, roaming, and, with the location permission, the identifiers of the serving and neighbouring cells.</li>
+  <li><strong>Installed apps</strong>: whether specific well-known VPN and DNS apps are installed (a fixed list named in the app's manifest), so that a VPN-related verdict can name the app. The app does not list your other apps.</li>
+  <li><strong>Results</strong>: every measurement and the verdict. They live in memory and disappear when you leave the app, unless you tap <strong>Save snapshot</strong>: then they are written as a file into the app's own folder on the phone (<code>Android/data/app.internot/files/snapshots/</code>). A snapshot contains network names, addresses and cell identifiers. It is excluded from Android backups and device transfers, it is yours to copy or delete, and it is removed when the app is uninstalled.</li>
+  <li><strong>Settings</strong>: your preferences (test server address, whether to ask before using mobile data) are stored on the phone only.</li>
+</ul>
+
+<h2>What the app sends, and to whom</h2>
+<p>Nothing is sent until you start a check. A check is a series of ordinary network requests whose only purpose is to see whether and how they succeed. Every server below sees the public IP address your network gives you, and standard protocol metadata (for HTTP: the app's name and version in the User-Agent header). None of the requests carry an account, a device identifier, your location or any result of the check.</p>
+<ol>
+  <li><strong>DNS resolvers.</strong> The app resolves a few well-known names through the resolver of the network you are on and through public resolvers (Cloudflare 1.1.1.1, Google 8.8.8.8, Quad9 9.9.9.9), both plain and encrypted, and compares the answers. The names queried are the names of the websites in point 3 and of the site you name in point 4.</li>
+  <li><strong>Connectivity-check and sign-in pages.</strong> The app fetches the standard connectivity-check URLs (such as <code>connectivitycheck.gstatic.com</code>) over plain HTTP to detect a Wi-Fi sign-in page. If one is found, you choose whether to open it.</li>
+  <li><strong>A small fixed set of popular websites.</strong> The app connects to them over HTTPS (and, for one of the checks, over plain HTTP) to see whether the connection is established, the certificate is the real one and the page answers. The list is visible in the app under <strong>How this was checked</strong>.</li>
+  <li><strong>The site or app you name.</strong> When you type a site to check, the app resolves it, connects to it, performs a TLS handshake and fetches its front page over your network(s), exactly as a browser would.</li>
+  <li><strong>The developer's test server.</strong> A small server run by the developer at a hosting provider in the European Union answers the app on a set of UDP and TCP ports, over TLS and HTTP, and serves a short download, so the app can compare "what my network does" with "what a known-good server sees". The server replies to the app with the public IP address and port the request came from (so the app can show whether a VPN or a carrier proxy is in the path); that reply stays on your phone. The server does not log requests or client addresses; it keeps short-lived counters per address in memory only to limit abuse. You can point the app at another test server in Settings.</li>
+  <li><strong>Globalping (third party).</strong> Only when a site you named fails to open from your network, the app asks Globalping (<code>api.globalping.io</code>, operated by jsDelivr) to fetch that site from a few locations in other countries, and shows you whether it is reachable from there. What is sent: the site's host name and the app's name and version; Globalping also sees your IP address as the caller. Globalping's own privacy policy applies to that request (<a href="https://globalping.io">globalping.io</a>). This check never runs for the fixed set of popular websites, only for a site you typed, and the welcome screen says so before your first check.</li>
+</ol>
+<p>That is the complete list. The app never sends a snapshot, a verdict, a measurement, your Wi-Fi name, your cell identifiers or your location to anyone, including the developer.</p>
+
+<h2>What the app never does</h2>
+<ul>
+  <li>No account, no sign-in, no e-mail collection.</li>
+  <li>No advertising, no advertising identifier, no analytics SDK, no tracking of any kind.</li>
+  <li>No crash reporting by the app. (Google Play may collect crash and performance statistics for all apps through the Android system; that is governed by Google's privacy policy and settings on your phone, not by this app.)</li>
+  <li>No background activity. Checks run only while you are in the app and only when you start them.</li>
+  <li>No change to your connection. InterNOT does not create a VPN, does not route or filter your traffic, and does not bypass any block. It is a measuring instrument.</li>
+  <li>No sale of data. There is no data to sell.</li>
+</ul>
+
+<h2>Permissions</h2>
+<table>
+  <tr><th>Permission</th><th>Why</th></tr>
+  <tr><td>Internet, network state, change network state, Wi-Fi state</td><td>To run the checks on each network separately and read connection settings.</td></tr>
+  <tr><td>Precise and approximate location</td><td>Android gates cell identifiers, the Wi-Fi network name and access-point identifier behind the location permission. The app reads only those, during a check, and never calculates, stores or sends your location. You can decline: the app still works and only loses the tower-distance and tower-hopping findings.</td></tr>
+  <tr><td>Phone state (read)</td><td>To read the mobile data network type (4G, 5G) and the roaming flag. No phone numbers or identifiers are read.</td></tr>
+</table>
+
+<h2>Data retention</h2>
+<p>The developer stores nothing about you. Whatever the app keeps is on your phone: snapshots you saved (until you delete them or uninstall the app) and your settings. The requests a check makes are processed by the servers above while they answer and are not retained by the developer's test server. Public resolvers, the websites checked and Globalping handle the requests under their own policies.</p>
+
+<h2>Children</h2>
+<p>InterNOT is a technical tool for adults and is not directed at children under 13. It does not knowingly collect personal information from anyone.</p>
+
+<h2>Security</h2>
+<p>The app talks to the developer's test server over TLS with a pinned certificate and to Globalping over HTTPS. Some checks deliberately use unencrypted DNS and HTTP, because their purpose is to see whether such traffic is being tampered with; those requests carry nothing of yours. In some countries a network operator can see which sites you try to reach, with or without this app; the welcome screen reminds you of this.</p>
+
+<h2>Changes</h2>
+<p>If the app starts sending anything new, this page is updated before that version is released, with a new effective date and a summary of the change at the bottom.</p>
+
+<h2>Contact</h2>
+<p><a href="mailto:ilya@clearfox.ai">ilya@clearfox.ai</a></p>
+
+<footer>Change log: 2026-11-01, first version.</footer>
+</main>
+</body>
+</html>
